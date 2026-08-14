@@ -86,6 +86,18 @@
       background: var(--bg-alt);
     }
 
+    .ai-notice {
+      position: absolute;
+      top: 2.85rem;
+      right: 1rem;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: right;
+      max-width: 280px;
+      line-height: 1.25;
+    }
+
     /* Tab Navigation */
     nav {
       display: flex;
@@ -172,6 +184,14 @@
       color: var(--navy-dark);
       border-top: 1px solid var(--border);
       background: var(--bg-alt);
+    }
+
+    .caption-note {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      font-style: italic;
     }
 
     /* Hardware Specifications Section */
@@ -318,7 +338,30 @@
       text-transform: uppercase;
     }
 
+    /* Footer Styling */
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+
     @media (max-width: 640px) {
+      header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .status-tag,
+      .ai-notice {
+        position: static;
+        text-align: left;
+        max-width: 100%;
+      }
+
       .specs-grid,
       .team-grid {
         grid-template-columns: 1fr;
@@ -331,9 +374,10 @@
 
   <div class="container">
     <header>
-      <span class="status-tag">DEMO PREVIEW</span>
+      <span class="status-tag">PREVIEW</span>
+      <span class="ai-notice">All the content on this website was<br>created without the use of generative AI</span>
       <div class="brand-title"><span class="arena">ARENA</span> Robotics</div>
-      <span class="brand-sub">Vacuum Tweezers</span>
+      <span class="brand-sub">MiniPic</span>
     </header>
 
     <nav>
@@ -341,21 +385,15 @@
       <button class="tab-btn" data-tab="about">[ About Us ]</button>
     </nav>
 
-    <!-- TAB 1: MEDIA & SPECS -->
     <section id="media" class="tab-content active">
       <div class="media-stack">
         
-        <!-- 01. Hero Shot -->
         <div class="media-block content-box">
           <div class="media-container">
             <img src="Hero.jpg" alt="ARENA Robotics Vacuum Tweezers Front Profile" />
           </div>
-          <div class="media-caption">
-            <strong>01. Product Overview</strong>
-          </div>
         </div>
 
-        <!-- 02. Operational Demo Video (Native 1st frame preload, no poster image) -->
         <div class="media-block content-box">
           <div class="media-container">
             <video controls preload="metadata">
@@ -364,31 +402,29 @@
             </video>
           </div>
           <div class="media-caption">
-            <strong>02. Operational Demo</strong>
+            <strong>Operational Demo</strong>
           </div>
         </div>
 
-        <!-- 03. Package Contents -->
         <div class="media-block content-box">
           <div class="media-container">
             <img src="TopDown_Tube.jpg" alt="Vacuum Tweezers package contents layout" />
           </div>
           <div class="media-caption">
-            <strong>03. What's In The Box</strong>
+            <strong>What's In The Box</strong>
+            <span class="caption-note">(Some parts have changed with the latest revision)</span>
           </div>
         </div>
 
-        <!-- 04. Scale Reference Image -->
         <div class="media-block content-box">
           <div class="media-container">
             <img src="Banana.jpg" alt="Vacuum Tweezers with banana for scale reference" />
           </div>
           <div class="media-caption">
-            <strong>04. Banana for Scale</strong>
+            <strong>Banana for Scale</strong>
           </div>
         </div>
 
-        <!-- 05. TECHNICAL SPECIFICATIONS & CONTENTS -->
         <div class="content-box specs-container">
           <div class="specs-grid">
             
@@ -397,7 +433,7 @@
               
               <div class="spec-group">
                 <span class="spec-label">Vacuum Force</span>
-                <span class="spec-value">[X] kPa ([Y] inHg)</span>
+                <span class="spec-value">-55 kPa (-16.2 inHg)</span>
               </div>
 
               <div class="spec-group">
@@ -407,17 +443,17 @@
 
               <div class="spec-group">
                 <span class="spec-label">Operating Power</span>
-                <span class="spec-value">[X] W ([Y] V @ [Z] A)</span>
+                <span class="spec-value">5 W (5 V @ 1 A)</span>
               </div>
 
               <div class="spec-group">
                 <span class="spec-label">Main Unit Dimensions</span>
-                <span class="spec-value">[L] x [W] x [H] mm</span>
+                <span class="spec-value">110 x 100 x 60 mm</span>
               </div>
 
               <div class="spec-group">
                 <span class="spec-label">Main Unit Weight</span>
-                <span class="spec-value">[X] g</span>
+                <span class="spec-value">750 g</span>
               </div>
 
               <div class="spec-group">
@@ -432,12 +468,12 @@
 
               <div class="spec-group">
                 <span class="spec-label">Low-Temp Nozzle Rating</span>
-                <span class="spec-value">[X] °C Max</span>
+                <span class="spec-value">50 °C Max</span>
               </div>
 
               <div class="spec-group">
                 <span class="spec-label">High-Temp Nozzle Rating</span>
-                <span class="spec-value">[Y] °C Max</span>
+                <span class="spec-value">160 °C Max</span>
               </div>
             </div>
 
@@ -456,27 +492,27 @@
 
               <div class="spec-group">
                 <span class="spec-label">Foot Pedal Cable</span>
-                <span class="spec-value">3.5mm Aux Cable ([X] m)</span>
+                <span class="spec-value">2 m Aux Cable</span>
               </div>
 
               <div class="spec-group">
                 <span class="spec-label">Vacuum Tubing</span>
-                <span class="spec-value">Flexible Tubing ([X] m)</span>
+                <span class="spec-value">1 m Silicone Tubing</span>
               </div>
 
               <div class="spec-group">
-                <span class="spec-label">Handpiece</span>
+                <span class="spec-label">Vacuum Tool</span>
                 <span class="spec-value">1x Vacuum Pen</span>
               </div>
 
               <div class="spec-group">
                 <span class="spec-label">Precision Needles</span>
-                <span class="spec-value">Assorted Sizes ([e.g. 18G, 22G, 25G])</span>
+                <span class="spec-value">18G, 21G, 23G, 18G Metal</span>
               </div>
 
               <div class="spec-group">
                 <span class="spec-label">Suction Cups</span>
-                <span class="spec-value">Assorted Sizes ([e.g. 3mm, 7mm, 10mm])</span>
+                <span class="spec-value">3mm, 5mm, 10mm</span>
               </div>
 
               <div class="spec-group">
@@ -491,7 +527,6 @@
       </div>
     </section>
 
-    <!-- TAB 2: ABOUT US -->
     <section id="about" class="tab-content">
       <div class="content-box">
         <div class="about-text">
@@ -504,26 +539,23 @@
               
               <div class="team-card">
                 <div class="headshot-container">
-                  <img src="sebastian-headshot.jpg" alt="Sebastian Raz Guzman" />
+                  <img src="Sebastian_Headshot.png" alt="Sebastian Raz Guzman" />
                 </div>
-                <strong>Sebastian</strong>
-                <span>Co-Founder / Engineering</span>
+                <strong>Sebastian Raz Guzman</strong>
               </div>
 
               <div class="team-card">
                 <div class="headshot-container">
-                  <img src="owen-headshot.jpg" alt="Owen" />
+                  <img src="Owen_Headshot.jpg" alt="Owen Miller" />
                 </div>
-                <strong>Owen</strong>
-                <span>Co-Founder / Hardware</span>
+                <strong>Owen Miller</strong>
               </div>
 
               <div class="team-card">
                 <div class="headshot-container">
-                  <img src="logan-headshot.jpg" alt="Logan" />
+                  <img src="Logan_Headshot.jpeg" alt="Logan Trexler" />
                 </div>
-                <strong>Logan</strong>
-                <span>Co-Founder / Operations</span>
+                <strong>Logan Trexler</strong>
               </div>
 
             </div>
@@ -531,18 +563,19 @@
             <div class="story-section">
               <h3>Our Story</h3>
               <p>
-                ARENA Robotics builds precise, open-source hardware tools designed to simplify benchtop electronics manufacturing and assembly.
+                Last summer, we founded a company developing advanced electronics for robot combat competitions. We were inexperienced and didn’t understand the market so the project didn’t work out. Throughout the project, we spent a lot of time designing and assembling PCBs on a tight budget. Like many others, we found that tweezers were cumbersome tools for placing SMD components. The search for a better alternative led us to vacuum tweezers, tools designed to pick and place SMD components using controlled suction. The plan was to buy something off the shelf, but all of the products that were in our price range were not usable. On the other hand, the existing professional tools would have drained our bank account. We were stuck between cheap, low quality options and expensive industrial tools, most of which lacked all the features we were actually looking for. 
+                <br><br>
+                Out of this frustration, one of our team members got to work, and in a few days, we had a functional tool that made assembly faster and easier than before. After using it ourselves, we realized we could provide a better alternative to others facing the same lack of options. Using our prototype as inspiration, we redesigned our vacuum tweezers from the ground up. Highly functional while still remaining simple and repairable.
               </p>
-            </div>
-
-            <div class="placeholder-block">
-              <strong>Contact & Feedback:</strong>
-              <p>contact@arenarobotics.com</p>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <footer>
+      <p>&copy; 2026 ARENA Robotics LLC. All rights reserved.</p>
+    </footer>
   </div>
 
   <script>
