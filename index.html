@@ -36,7 +36,7 @@
       min-height: 100vh;
       padding: 2rem 1rem 4rem 1rem;
 
-      /* Engineering Grid Background Design */
+      /* Engineering Grid Background */
       background-image: 
         linear-gradient(to right, #f1f5f9 1px, transparent 1px),
         linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
@@ -86,7 +86,7 @@
       background: var(--bg-alt);
     }
 
-    /* Tab Switcher Layout */
+    /* Tab Navigation */
     nav {
       display: flex;
       gap: 0;
@@ -119,7 +119,6 @@
       font-weight: bold;
     }
 
-    /* Tab Sections */
     .tab-content {
       display: none;
     }
@@ -128,7 +127,7 @@
       display: block;
     }
 
-    /* Shared Box Styling */
+    /* Content Card Wrapper */
     .content-box {
       width: 100%;
       max-width: 720px;
@@ -139,7 +138,6 @@
       overflow: hidden;
     }
 
-    /* Media Stack (Tab 1) */
     .media-stack {
       display: flex;
       flex-direction: column;
@@ -149,18 +147,22 @@
 
     .media-container {
       width: 100%;
-      background: #000;
+      background: var(--bg-alt);
       display: flex;
       justify-content: center;
       align-items: center;
-      aspect-ratio: 16 / 9;
     }
 
-    .media-container img,
+    .media-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Streamlined Native Video Element */
     .media-container video {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      height: auto;
       display: block;
     }
 
@@ -172,7 +174,52 @@
       background: var(--bg-alt);
     }
 
-    /* About Section (Tab 2) */
+    /* Hardware Specifications Section */
+    .specs-container {
+      padding: 1.5rem;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .specs-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--navy-dark);
+      border-bottom: 2px solid var(--navy-dark);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .spec-group {
+      display: flex;
+      flex-direction: column;
+      padding: 0.45rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .spec-group:last-child {
+      border-bottom: none;
+    }
+
+    .spec-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .spec-value {
+      font-size: 0.9rem;
+      color: var(--navy-dark);
+      font-weight: bold;
+    }
+
+    /* About Section Layout */
     .about-text {
       display: flex;
       flex-direction: column;
@@ -196,50 +243,59 @@
       padding: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
-    /* Team Section */
-    .team-section {
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
       width: 100%;
     }
 
-    .team-photo-container {
-      width: 100%;
-      border: 1px solid var(--border);
-      background: #000;
-      aspect-ratio: 16 / 9;
+    .team-card {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      margin-bottom: 1rem;
+      text-align: center;
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      padding: 0.75rem;
     }
 
-    .team-photo-container img {
+    .headshot-container {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: var(--bg-alt);
+      border: 1px solid var(--navy-dark);
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .headshot-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .team-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      text-align: center;
-    }
-
-    .team-member strong {
+    .team-card strong {
+      font-size: 0.95rem;
       color: var(--navy-dark);
       display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .team-card span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
     .story-section {
       border-top: 1px solid var(--border);
       padding-top: 1.5rem;
-      margin-top: 0.5rem;
     }
 
     .story-section h3 {
@@ -249,9 +305,7 @@
       color: var(--navy-dark);
     }
 
-    /* Placeholder contact block */
     .placeholder-block {
-      margin-top: 1.5rem;
       padding: 1.25rem;
       border: 1px dashed var(--navy-dark);
       background: var(--bg-alt);
@@ -262,6 +316,14 @@
       display: block;
       margin-bottom: 0.5rem;
       text-transform: uppercase;
+    }
+
+    @media (max-width: 640px) {
+      .specs-grid,
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -275,44 +337,154 @@
     </header>
 
     <nav>
-      <button class="tab-btn active" onclick="switchTab('media', this)">[ Videos & Media ]</button>
-      <button class="tab-btn" onclick="switchTab('about', this)">[ About Us ]</button>
+      <button class="tab-btn active" data-tab="media">[ Videos & Media ]</button>
+      <button class="tab-btn" data-tab="about">[ About Us ]</button>
     </nav>
 
-    <!-- TAB 1: MEDIA (LARGE & CENTERED) -->
+    <!-- TAB 1: MEDIA & SPECS -->
     <section id="media" class="tab-content active">
       <div class="media-stack">
         
-        <!-- Primary Video Demo -->
+        <!-- 01. Hero Shot -->
         <div class="media-block content-box">
           <div class="media-container">
-            <video controls poster="https://via.placeholder.com/1280x720/0a1128/ffffff?text=Video+Placeholder">
-              <source src="demo-video.mp4" type="video/mp4">
+            <img src="Hero.jpg" alt="ARENA Robotics Vacuum Tweezers Front Profile" />
+          </div>
+          <div class="media-caption">
+            <strong>01. Product Overview</strong>
+          </div>
+        </div>
+
+        <!-- 02. Operational Demo Video (Native 1st frame preload, no poster image) -->
+        <div class="media-block content-box">
+          <div class="media-container">
+            <video controls preload="metadata">
+              <source src="Demo_Video.mp4#t=0.1" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
           <div class="media-caption">
-            <strong>01. Operational Demo</strong>
+            <strong>02. Operational Demo</strong>
           </div>
         </div>
 
-        <!-- Image Unit 1 -->
+        <!-- 03. Package Contents -->
         <div class="media-block content-box">
           <div class="media-container">
-            <img src="https://via.placeholder.com/1280x720/ffffff/0a1128?text=Image+Placeholder+02" alt="02" />
+            <img src="TopDown_Tube.jpg" alt="Vacuum Tweezers package contents layout" />
           </div>
           <div class="media-caption">
-            <strong>02.</strong>
+            <strong>03. What's In The Box</strong>
           </div>
         </div>
 
-        <!-- Image Unit 2 -->
+        <!-- 04. Scale Reference Image -->
         <div class="media-block content-box">
           <div class="media-container">
-            <img src="https://via.placeholder.com/1280x720/ffffff/0a1128?text=Image+Placeholder+03" alt="03" />
+            <img src="Banana.jpg" alt="Vacuum Tweezers with banana for scale reference" />
           </div>
           <div class="media-caption">
-            <strong>03.</strong>
+            <strong>04. Banana for Scale</strong>
+          </div>
+        </div>
+
+        <!-- 05. TECHNICAL SPECIFICATIONS & CONTENTS -->
+        <div class="content-box specs-container">
+          <div class="specs-grid">
+            
+            <div class="specs-column">
+              <h3 class="specs-title">[ Hardware Specifications ]</h3>
+              
+              <div class="spec-group">
+                <span class="spec-label">Vacuum Force</span>
+                <span class="spec-value">[X] kPa ([Y] inHg)</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Power Interface</span>
+                <span class="spec-value">USB-C</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Operating Power</span>
+                <span class="spec-value">[X] W ([Y] V @ [Z] A)</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Main Unit Dimensions</span>
+                <span class="spec-value">[L] x [W] x [H] mm</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Main Unit Weight</span>
+                <span class="spec-value">[X] g</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Pedal Interface</span>
+                <span class="spec-value">3.5mm Aux Jack</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Pedal Switch</span>
+                <span class="spec-value">MX Hotswap Socket</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Low-Temp Nozzle Rating</span>
+                <span class="spec-value">[X] °C Max</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">High-Temp Nozzle Rating</span>
+                <span class="spec-value">[Y] °C Max</span>
+              </div>
+            </div>
+
+            <div class="specs-column">
+              <h3 class="specs-title">[ What's In The Box ]</h3>
+
+              <div class="spec-group">
+                <span class="spec-label">Base Station</span>
+                <span class="spec-value">1x Main Vacuum Unit</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Foot Pedal Actuator</span>
+                <span class="spec-value">1x Pedal Assembly</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Foot Pedal Cable</span>
+                <span class="spec-value">3.5mm Aux Cable ([X] m)</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Vacuum Tubing</span>
+                <span class="spec-value">Flexible Tubing ([X] m)</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Handpiece</span>
+                <span class="spec-value">1x Vacuum Pen</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Precision Needles</span>
+                <span class="spec-value">Assorted Sizes ([e.g. 18G, 22G, 25G])</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Suction Cups</span>
+                <span class="spec-value">Assorted Sizes ([e.g. 3mm, 7mm, 10mm])</span>
+              </div>
+
+              <div class="spec-group">
+                <span class="spec-label">Included Nozzles</span>
+                <span class="spec-value">Low-Temp & High-Temp Sets</span>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -328,40 +500,44 @@
           </div>
           
           <div class="about-body">
-            <!-- 1. Team Photo & Names First -->
-            <div class="team-section">
-              <div class="team-photo-container">
-                <img src="https://via.placeholder.com/1280x720/1c2541/ffffff?text=ARENA+Robotics+Team+(3+Members)" alt="ARENA Robotics Team" />
-              </div>
+            <div class="team-grid">
               
-              <div class="team-list">
-                <div class="team-member">
-                  <strong>[Name 1]</strong>
-                  <span>[Role/Title]</span>
+              <div class="team-card">
+                <div class="headshot-container">
+                  <img src="sebastian-headshot.jpg" alt="Sebastian Raz Guzman" />
                 </div>
-                <div class="team-member">
-                  <strong>[Name 2]</strong>
-                  <span>[Role/Title]</span>
-                </div>
-                <div class="team-member">
-                  <strong>[Name 3]</strong>
-                  <span>[Role/Title]</span>
-                </div>
+                <strong>Sebastian</strong>
+                <span>Co-Founder / Engineering</span>
               </div>
+
+              <div class="team-card">
+                <div class="headshot-container">
+                  <img src="owen-headshot.jpg" alt="Owen" />
+                </div>
+                <strong>Owen</strong>
+                <span>Co-Founder / Hardware</span>
+              </div>
+
+              <div class="team-card">
+                <div class="headshot-container">
+                  <img src="logan-headshot.jpg" alt="Logan" />
+                </div>
+                <strong>Logan</strong>
+                <span>Co-Founder / Operations</span>
+              </div>
+
             </div>
 
-            <!-- 2. Story Below -->
             <div class="story-section">
               <h3>Our Story</h3>
               <p>
-                [INSERT STORY PLACEHOLDER]
+                ARENA Robotics builds precise, open-source hardware tools designed to simplify benchtop electronics manufacturing and assembly.
               </p>
             </div>
 
-            <!-- 3. Contact Placeholder -->
             <div class="placeholder-block">
               <strong>Contact & Feedback:</strong>
-              <p>[INSERT EMAIL / CONTACT PLACEHOLDER]</p>
+              <p>contact@arenarobotics.com</p>
             </div>
           </div>
         </div>
@@ -370,17 +546,17 @@
   </div>
 
   <script>
-    function switchTab(tabId, element) {
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-tab');
 
-      document.getElementById(tabId).classList.add('active');
-      element.classList.add('active');
-    }
+        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+        document.getElementById(targetId).classList.add('active');
+        btn.classList.add('active');
+      });
+    });
   </script>
 
 </body>
